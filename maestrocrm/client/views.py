@@ -11,3 +11,4 @@ from lead.forms import AddLeadForm
 @login_required
 def convert_to_client(request, pk):
     lead = get_object_or_404(Lead, created_by=request.user, pk=pk)
+    

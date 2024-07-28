@@ -1,0 +1,26 @@
+create venv: python -m venv venv
+activate venv : .vevn\Scripts\activate
+create django project : django-admin startproject projectname
+create pages and templates
+    create pag
+-Authentication
+    -DONE Create database model for userprofile
+    -Mmake it possible to sign userprofile
+    -Make it possible to sign in
+    -Make it possinle to logout
+-Create Leads
+    -New django app
+    -Database models
+    -Views/Forms for leads
+    -List out leads
+    -view detailed page for leads
+-DONE Change and Delete leads
+-Convert leads to client
+    -DONE Create new app
+    -DONE Create database models
+    -Create views for convertion
+    -Create template to render list of client
+    -Create template to render client details
+-Change and Delete Clients
+-Implement Solutions for templates
+-Implement a payment solutions

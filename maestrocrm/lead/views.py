@@ -32,7 +32,9 @@ def leads_detail(request, pk):
 
 @login_required
 def leads_list(request):
+    # leads = Lead.objects.filter(created_by=request.user, convert_to_client = False)
     leads = Lead.objects.filter(created_by=request.user)
+
 
     return render(request, 'lead/leads_list.html', {
         'leads': leads

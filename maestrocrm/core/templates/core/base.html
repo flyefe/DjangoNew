@@ -9,13 +9,6 @@
 </head>
 
 <body>
-    {% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
     <nav class="py-4 px-6 flex justify-between bg-teal-500">
         <a href="/" class="text-white">MaestroCRM</a>
         <div class="flex space-x-4">

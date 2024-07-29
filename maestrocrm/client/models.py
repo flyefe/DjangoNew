@@ -1,35 +1,35 @@
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.db import models
+from django.utils import timezone
+
+SERVICES_CHOICES = [
+    ('POF', 'POF'),
+    ('Insurance', 'Insurance'),
+    ('Visa Processing', 'Visa Processing'),
+    ('Admission processing', 'Admission processing'),
+    ('Visa fee payment', 'Visa fee payment'),
+]
+
+STATUS_CHOICES = [
+    ('open', 'Open'),
+    ('closed', 'Closed'),
+]
 
 class Client(models.Model):
-    #Current Services
-    GENERAL = 'general'
-    UK_VISA = 'uk visa'
-    CANADA_VISA =  'canada visa'
-    STUDY = 'study'
-
-    #list to choose from for priority of customers
-    CHOICES_SERVICE = (
-        (GENERAL, 'General'),
-        (UK_VISA, 'Uk Visa'),
-        (CANADA_VISA, 'Canada Visa'),
-        (STUDY, 'Study' ),
-    )
-
-    name = models.CharField(max_length=225)
+    first_name = models.CharField(max_length=255, default='FirstNamePlaceholder')
+    middle_name = models.CharField(max_length=255, blank=True, null=True)
+    last_name = models.CharField(max_length=255, default='LastNamePlaceholder')
+    phone_number = models.CharField(max_length=20, blank=True, null=True)
     email = models.EmailField()
-    description = models.TextField(blank=True, null=True)
-    service = models.CharField(max_length=20, choices=CHOICES_SERVICE, default=GENERAL)
+    services = models.CharField(max_length=50, choices=SERVICES_CHOICES, default='Visa Processing')
+    status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='open')
+    open_date = models.DateTimeField(blank=True, null=True)
+    close_date = models.DateTimeField(blank=True, null=True)
+    assigned_to = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='assigned_clients', on_delete=models.CASCADE, default=1)  # Assuming user with ID 1 exists
+    traffic_source = models.CharField(max_length=255, blank=True, null=True)
+    converted_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='converted_clients', on_delete=models.CASCADE, default=1)  # Assuming user with ID 1 exists
+    converted_at = models.DateTimeField(default=timezone.now)
     modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
-
-class ClientNote(models.Model):
-    clieint = models.ForeignKey(Client, related_name='notes', on_delete=models.CASCADE)
-    note = models.TextField()
-    created_by = models.ForeignKey(User, related_name='client_notes', on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f'Note by {self.created_by.username} on {self.created_at}'
+        return f"{self.first_name} {self.last_name}"

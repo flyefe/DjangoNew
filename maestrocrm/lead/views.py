@@ -12,7 +12,7 @@ from .forms import AddLeadForm
 @login_required
 def delete_lead(request, pk):
     lead = get_object_or_404(Lead, created_by=request.user, pk=pk)
-    lead_name = lead.name
+    lead_name = lead.first_name
     lead.delete()
 
     # messages.add_message(request, messages.INFO, "the lead was deleted")
@@ -50,7 +50,7 @@ def edit_lead(request, pk):
         if form.is_valid():
             form.save()
 
-            messages.success(request, f"{lead.name} has been edited successfully.")
+            messages.success(request, f"{lead.first_name} has been edited successfully.")
             return redirect('leads_list')
     else:
         
@@ -71,7 +71,7 @@ def add_lead(request):
             lead.created_by = request.user
             lead.save()
             
-            messages.success(request, f"{lead.name} has been added successfully.")
+            messages.success(request, f"{lead.first_name} has been added successfully.")
 
             return redirect('leads_list')  # Redirect to a success page or another relevant page
     else:

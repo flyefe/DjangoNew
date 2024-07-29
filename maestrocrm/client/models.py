@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
@@ -16,20 +17,35 @@ STATUS_CHOICES = [
 ]
 
 class Client(models.Model):
-    first_name = models.CharField(max_length=255, default='FirstNamePlaceholder')
+    first_name = models.CharField(max_length=255, default='FirstName')
     middle_name = models.CharField(max_length=255, blank=True, null=True)
-    last_name = models.CharField(max_length=255, default='LastNamePlaceholder')
+    last_name = models.CharField(max_length=255, default='LastName')
     phone_number = models.CharField(max_length=20, blank=True, null=True)
     email = models.EmailField()
     services = models.CharField(max_length=50, choices=SERVICES_CHOICES, default='Visa Processing')
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='open')
     open_date = models.DateTimeField(blank=True, null=True)
     close_date = models.DateTimeField(blank=True, null=True)
-    assigned_to = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='assigned_clients', on_delete=models.CASCADE, default=1)  # Assuming user with ID 1 exists
+    assigned_to = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='assigned_clients',
+        on_delete=models.CASCADE,
+        default=1  # Assuming user with ID 1 exists
+    )
     traffic_source = models.CharField(max_length=255, blank=True, null=True)
-    converted_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='converted_clients', on_delete=models.CASCADE, default=1)  # Assuming user with ID 1 exists
+    converted_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='converted_clients',
+        on_delete=models.CASCADE,
+        default=1  # Assuming user with ID 1 exists
+    )
     converted_at = models.DateTimeField(default=timezone.now)
+    created_by = models.ForeignKey(User, related_name='clients', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
+    description = models.TextField(blank=True, null=True)
+    convert_to_ = models.BooleanField(default=False)
+
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

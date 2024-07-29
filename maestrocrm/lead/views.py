@@ -15,8 +15,6 @@ def delete_lead(request, pk):
     lead_name = lead.first_name
     lead.delete()
 
-    # messages.add_message(request, messages.INFO, "the lead was deleted")
-    # messages.success(request,  "{lead_name} Profile  details updated.")
     messages.success(request, f"{lead_name} has been deleted.")
 
     return redirect('leads_list')
@@ -32,8 +30,8 @@ def leads_detail(request, pk):
 
 @login_required
 def leads_list(request):
-    # leads = Lead.objects.filter(created_by=request.user, convert_to_client = False)
-    leads = Lead.objects.filter(created_by=request.user)
+    leads = Lead.objects.filter(created_by=request.user, convert_to_client = False)
+    # leads = Lead.objects.filter(created_by=request.user)
 
 
     return render(request, 'lead/leads_list.html', {

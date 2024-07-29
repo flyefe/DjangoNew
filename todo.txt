@@ -22,5 +22,10 @@ create pages and templates
     -Create template to render list of client
     -Create template to render client details
 -Change and Delete Clients
--Implement Solutions for templates
+    -DONE Edit customers details
+    -DONE Delete customer
+        -DONE Create Views
+        -DONE Register endpoint in urls.py
+-Convert Customers to Leads
+-Implement Solutions for team
 -Implement a payment solutions

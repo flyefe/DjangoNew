@@ -5,3 +5,4 @@ from .models import Client  #, ClientNote
 # Register your models here.
 admin.site.register(Client)
 # admin.site.register(ClientNote)
+

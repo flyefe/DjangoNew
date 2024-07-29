@@ -1,0 +1,37 @@
+{% extends 'core/base.html' %}
+
+{% block title %} {{ client.first_name}} {% endblock %}
+
+{% block content %}
+<div class="py-6 px-6">
+    <h1 class="mb-4 tet-xl font-semibold text-xl"> {{ client.first_name}} </h1>
+
+    {% if client.description %}
+    <p class="font-semibold">client Description</p>
+    <p class="mb-4"> {{ client.description }} </p>
+    {% endif %}
+
+    <p class="font-semibold">Priority</p>
+    <p class="mb-4"> {{ client.get_priority_display }} </p>
+
+    <p class="font-semibold">Status</p>
+    <p class="mb-4"> {{ client.get_status_display }} </p>
+
+    <p class="font-semibold">Created at</p>
+    <p class="mb-4"> {{ client.created_at }} </p>
+
+    <p class="font-semibold">Moddified at</p>
+    <p class="mb-4"> {{ client.modified_at }} </p>
+
+    <hr class="my-4">
+
+    <a href=" {% url 'edit_client' client.id %} " class="py-2 px-4 rounded-xl bg-teal-500 text-white">Update Customer</a>
+    <a href="{% url 'delete_client' client.id %}" class="py-2 px-4 rounded-xl bg-red-500 text-white">Delete Customer</a>
+    <a href=" /" class="py-2 px-4 rounded-xl bg-blue-500 text-white">Convert back to
+        lead</a>
+
+    <hr class="my-4">
+
+    <a href="/">Back to clients</a>
+</div>
+{% endblock %}

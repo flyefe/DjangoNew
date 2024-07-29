@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+from core.models import BaseModel
 
 SERVICES_CHOICES = [
     ('POF', 'POF'),
@@ -16,12 +17,8 @@ STATUS_CHOICES = [
     ('closed', 'Closed'),
 ]
 
-class Client(models.Model):
-    first_name = models.CharField(max_length=255, default='FirstName')
+class Client(BaseModel):
     middle_name = models.CharField(max_length=255, blank=True, null=True)
-    last_name = models.CharField(max_length=255, default='LastName')
-    phone_number = models.CharField(max_length=20, blank=True, null=True)
-    email = models.EmailField()
     services = models.CharField(max_length=50, choices=SERVICES_CHOICES, default='Visa Processing')
     status = models.CharField(max_length=50, choices=STATUS_CHOICES, default='open')
     open_date = models.DateTimeField(blank=True, null=True)
@@ -42,10 +39,23 @@ class Client(models.Model):
     converted_at = models.DateTimeField(default=timezone.now)
     created_by = models.ForeignKey(User, related_name='clients', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
-    description = models.TextField(blank=True, null=True)
-    convert_to_ = models.BooleanField(default=False)
+    convert_to_lead = models.BooleanField(default=False)
 
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+    
+
+
+
+
+    def convert_to_lead(self, user):
+        lead = Lead.objects.create(
+            first_name=self.first_name,
+            email=self.email,
+            description=self.description,
+            created_by=user,
+            priority=Lead.MEDIUM,
+            status=Lead.NEW
+        )
+        return lead

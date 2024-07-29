@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from django.db import models
+from core.models import BaseModel
 
-class Lead(models.Model):
+class Lead(BaseModel):
     # Lead priority for priority of customers
     LOW = 'low'
     MEDIUM = 'medium'
@@ -27,18 +28,26 @@ class Lead(models.Model):
         (LOST, 'Lost'),
     )
 
-    first_name = models.CharField(max_length=225)
-    email = models.EmailField()
-    description = models.TextField(blank=True, null=True)
     priority = models.CharField(max_length=10, choices=CHOICES_PRIORITY, default=MEDIUM)
     status = models.CharField(max_length=10, choices=CHOICES_STATUS, default=MEDIUM)
-    created_by = models.ForeignKey(User, related_name='leads', on_delete=models.CASCADE)
-    convert_to_client = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    modified_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.first_name
+    
+
+    def convert_to_client(self, user):
+        client = Client.objects.create(
+            first_name=self.first_name,
+            email=self.email,
+            description=self.description,
+            created_by=user,
+            assigned_to=user,
+            traffic_source='',  # Assuming you want to set a default value or copy from Lead if available
+            converted_by=user,
+            converted_at=timezone.now(),
+        )
+        return client
 
 class LeadNote(models.Model):
     lead = models.ForeignKey(Lead, related_name='notes', on_delete=models.CASCADE)

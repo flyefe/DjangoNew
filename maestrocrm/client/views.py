@@ -14,7 +14,7 @@ def delete_client(request, pk):
     client_name = client.first_name
     client.delete()
 
-    messages.success(request, f"{client.first_name} has been edited successfully.")
+    messages.success(request, f"{client_name} has been deleted successfully.")
     return redirect(client_list)
 
 

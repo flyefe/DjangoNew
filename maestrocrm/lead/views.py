@@ -68,8 +68,11 @@ def add_lead(request):
         form = AddLeadForm(request.POST)
 
         if form.is_valid():
+            team=Team.objects.filter(created_by=request.user).first()
+
             lead = form.save(commit=False)
             lead.created_by = request.user
+            lead.team = team
             lead.save()
             
             messages.success(request, f"{lead.first_name} has been added successfully.")

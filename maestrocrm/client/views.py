@@ -5,6 +5,7 @@ from django.utils import timezone
 
 from .models import Client
 from .forms import AddClientForm
+from team.models import Team
 # from lead.models import Lead
 
 
@@ -53,8 +54,11 @@ def add_client(request):
         form = AddClientForm(request.POST)
 
         if form.is_valid():
+            team=Team.objects.filter(created_by=request.user).first()
+
             client = form.save(commit=False)
             client.created_by = request.user
+            client.team = team
             client.save()
 
             messages.success(

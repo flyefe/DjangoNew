@@ -11,10 +11,15 @@
     <div class="mt-6 flex justify-between">
         <p class="py-4 px-2 bg-gray-200 font-semibold w-full">First Name</p>
         <p class="py-4 px-2 bg-gray-200 font-semibold w-full">Last Name</p>
+        <p class="py-4 px-2 bg-gray-200 font-semibold w-full">Email</p>
         <p class="py-4 px-2 bg-gray-200 font-semibold w-full">Phone Number</p>
         <p class="py-4 px-2 bg-gray-200 font-semibold w-full">Service</p>
         <p class="py-4 px-2 bg-gray-200 font-semibold w-full">Status</p>
         <p class="py-4 px-2 bg-gray-200 font-semibold w-full">Assigned To</p>
+        <p class="py-4 px-2 bg-gray-200 font-semibold w-full">Group</p>
+        <p class="py-4 px-2 bg-gray-200 font-semibold w-full">Date converted</p>
+        <p class="py-4 px-2 bg-gray-200 font-semibold w-full">Registeration Date</p>
+        <p class="py-4 px-2 bg-gray-200 font-semibold w-full">Last Modified</p>
     </div>
 
     {% for client in clients %}
@@ -25,10 +30,16 @@
         <p class="py-4 px-2 w-full {% cycle 'bg-gray-100' '' %}">
             <a href="{% url 'client_detail' client.id %}">{{ client.last_name }}</a>
         </p>
+        <p class="py-4 px-2 w-full {% cycle 'bg-gray-100' '' %}">{{ client.email }}</p>
+        <p class="py-4 px-2 w-full {% cycle 'bg-gray-100' '' %}">{{ client.phone_number }}</p>
         <p class="py-4 px-2 w-full {% cycle 'bg-gray-100' '' %}">{{ client.phone_number }}</p>
         <p class="py-4 px-2 w-full {% cycle 'bg-gray-100' '' %}">{{ client.get_services_display }}</p>
         <p class="py-4 px-2 w-full {% cycle 'bg-gray-100' '' %}">{{ client.get_status_display }}</p>
         <p class="py-4 px-2 w-full {% cycle 'bg-gray-100' '' %}">{{ client.assigned_to }}</p>
+        <p class="py-4 px-2 w-full {% cycle 'bg-gray-100' '' %}">{{ client.team }}</p>
+        <p class="py-4 px-2 w-full {% cycle 'bg-gray-100' '' %}">{{ client.converted_at }}</p>
+        <p class="py-4 px-2 w-full {% cycle 'bg-gray-100' '' %}">{{ client.created_at }}</p>
+        <p class="py-4 px-2 w-full {% cycle 'bg-gray-100' '' %}">{{ client.modified_at }}</p>
     </div>
     {% empty %}
     <p>There are no clients in the database yet...</p>

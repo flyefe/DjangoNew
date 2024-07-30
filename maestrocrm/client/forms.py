@@ -7,6 +7,6 @@ class AddClientForm(forms.ModelForm):
         fields = [
             'first_name', 'middle_name', 'last_name', 'phone_number', 'email',
             'services', 'status', 'open_date', 'close_date', 'assigned_to',
-            'traffic_source',
+            'traffic_source','team',
         ]
         # Remove readonly_fields if it's not needed

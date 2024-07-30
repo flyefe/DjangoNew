@@ -9,10 +9,10 @@ from userprofile.views import signup
 urlpatterns = [
     path('sign-up/', signup, name='signup'),
     path('log-in/', auth_views.LoginView.as_view(template_name='userprofile/login.html'), name='login'),
-    path('lead/', include('lead.urls')),
+    # path('lead/', include('lead.urls')),
     path('about/', about, name='about'),
     path('dashboard/client/', include('client.urls')),
-    path('dashboard/lead', include('lead.urls')),
+    path('dashboard/lead/', include('lead.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('logout', auth_views.LogoutView.as_view(), name='logout'),
     path('', index, name='index'),

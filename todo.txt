@@ -28,4 +28,7 @@ create pages and templates
         -DONE Register endpoint in urls.py
 -Convert Customers to Leads
 -Implement Solutions for team
+    -Create tteams app
+    -Model for teams
+    -You must be a team member
 -Implement a payment solutions

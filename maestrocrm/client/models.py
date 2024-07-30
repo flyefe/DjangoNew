@@ -3,6 +3,8 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
+# from team.models import Team
+
 SERVICES_CHOICES = [
     ('POF', 'POF'),
     ('Insurance', 'Insurance'),
@@ -44,7 +46,6 @@ class Client(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     description = models.TextField(blank=True, null=True)
-    convert_to_ = models.BooleanField(default=False)
 
 
     def __str__(self):

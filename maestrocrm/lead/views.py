@@ -6,6 +6,9 @@ from django.contrib import messages
 from .models import Lead
 from .forms import AddLeadForm
 
+from django.contrib import messages
+from django.utils import timezone
+from client.models import Client
 
 
 
@@ -78,3 +81,25 @@ def add_lead(request):
     return render(request, 'lead/add_lead.html', {
         'form': form
     })
+@login_required
+def convert_to_client(request, pk):
+    lead = get_object_or_404(Lead, created_by=request.user, pk=pk)
+    client = Client.objects.create(
+        first_name=lead.first_name,
+        status='open',  # default to 'open'
+        open_date=timezone.now(),
+        assigned_to=request.user,
+        traffic_source=lead.traffic_source
+        if hasattr(lead, 'traffic_source') else '',
+        converted_by=request.user,
+        converted_at=timezone.now(),
+        email = lead.email,
+        created_by=request.user)
+    
+
+    lead.convert_to_client = True
+    lead.save()
+
+    messages.success(request,
+                     f"{client.first_name} has been converted to a Client! Update thier details.")
+    return redirect('leads_list')

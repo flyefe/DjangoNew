@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-# from team.models import Team
+from team.models import Team
 
 class Lead(models.Model):
     # Lead priority for priority of customers
@@ -29,7 +29,7 @@ class Lead(models.Model):
         (LOST, 'Lost'),
     )
 
-    # team = models.ForeignKey(Team, related_name='leads', on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, related_name='leads', on_delete=models.CASCADE)
     first_name = models.CharField(max_length=225)
     email = models.EmailField()
     description = models.TextField(blank=True, null=True)

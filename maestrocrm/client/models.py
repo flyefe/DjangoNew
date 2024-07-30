@@ -3,7 +3,7 @@ from django.conf import settings
 from django.db import models
 from django.utils import timezone
 
-# from team.models import Team
+from team.models import Team
 
 SERVICES_CHOICES = [
     ('POF', 'POF'),
@@ -19,6 +19,7 @@ STATUS_CHOICES = [
 ]
 
 class Client(models.Model):
+    team = models.ForeignKey(Team, related_name='clients', on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255, default='FirstName')
     middle_name = models.CharField(max_length=255, blank=True, null=True)
     last_name = models.CharField(max_length=255, default='LastName')

@@ -87,6 +87,8 @@ def add_lead(request):
 @login_required
 def convert_to_client(request, pk):
     lead = get_object_or_404(Lead, created_by=request.user, pk=pk)
+    team=Team.objects.filter(created_by=request.user).first()
+
     client = Client.objects.create(
         first_name=lead.first_name,
         status='open',  # default to 'open'
@@ -97,7 +99,8 @@ def convert_to_client(request, pk):
         converted_by=request.user,
         converted_at=timezone.now(),
         email = lead.email,
-        created_by=request.user)
+        created_by=request.user,
+        team=team)
     
 
     lead.convert_to_client = True

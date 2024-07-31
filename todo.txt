@@ -28,10 +28,16 @@ create pages and templates
         -DONE Register endpoint in urls.py
 -Convert Customers to Leads
 -Implement Solutions for team
-    -Create teams app
-    -Model for teams
-    -You must be a team member
+    -DONE Create teams app
+    -DONE Model for teams
+    -Done When you create a team, make sure team is set
+    -Done When you create a client, make sure team is set
+    -DONE User must be a team member
     -Updat dashboard to 
         -Show 5 latest lead and Clients
         - show 5most recently modified leads and clients
+    -if you are not a member of a team create one
+        -Create new team everytime a new user is created (later)
+    -team owner can edit team name
+
 -Implement a payment solutions

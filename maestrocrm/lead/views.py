@@ -109,4 +109,4 @@ def convert_to_client(request, pk):
 
     messages.success(request,
                      f"{client.first_name} has been converted to a Client! Update thier details.")
-    return redirect('leads_list')
+    return redirect('edit_client', pk=client.pk)

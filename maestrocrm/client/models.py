@@ -49,5 +49,13 @@ class Client(models.Model):
     description = models.TextField(blank=True, null=True)
 
 
+    class Meta:
+        ordering= ('first_name',)
+
+
+    # class Meta:
+    #     ordering = ('first_name',)
+
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

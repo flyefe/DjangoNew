@@ -9,6 +9,7 @@ from .forms import AddLeadForm
 from django.contrib import messages
 from django.utils import timezone
 from client.models import Client
+from team.models import Team
 
 
 

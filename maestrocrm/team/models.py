@@ -6,5 +6,7 @@ class Team(models.Model):
     created_by = models.ForeignKey(User, related_name='created_teams', on_delete=models.CASCADE)
     members = models.ManyToManyField(User, related_name='teams')
 
+  
+
     def __str__(self):
         return self.name

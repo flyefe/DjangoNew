@@ -16,3 +16,4 @@ def dashboard(request):
         'leads':leads,
         'clients':clients,
     })
+

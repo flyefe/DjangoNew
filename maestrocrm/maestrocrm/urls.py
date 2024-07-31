@@ -3,7 +3,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, include
 
 from core.views import index, about
-from userprofile.views import signup
+from userprofile.views import signup, myaccount
 # from lead.views import add_lead
 
 urlpatterns = [
@@ -16,5 +16,6 @@ urlpatterns = [
     path('dashboard/', include('dashboard.urls')),
     path('logout', auth_views.LogoutView.as_view(), name='logout'),
     path('', index, name='index'),
+    path('dashboard/myaccount/', myaccount, name='myaccount'),
     path('admin/', admin.site.urls),
 ]

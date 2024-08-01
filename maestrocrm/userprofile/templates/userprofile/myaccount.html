@@ -12,6 +12,7 @@
         
         <p class="mb-2">
             <strong>Team:</strong>{{ team.name }}
+            <a class="text-blue" href=" {% url 'edit_team' team.id %} ">(Edit)</a>
         </p>
         <hr class="mb-4">
         <form method="post" action="{% url 'logout' %}">

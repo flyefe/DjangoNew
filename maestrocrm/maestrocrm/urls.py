@@ -4,7 +4,6 @@ from django.urls import path, include
 
 from core.views import index, about
 from userprofile.views import signup, myaccount
-# from lead.views import add_lead
 
 urlpatterns = [
     path('sign-up/', signup, name='signup'),
@@ -13,6 +12,7 @@ urlpatterns = [
     path('about/', about, name='about'),
     path('dashboard/client/', include('client.urls')),
     path('dashboard/lead/', include('lead.urls')),
+    path('dashboard/team/', include('team.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('logout', auth_views.LogoutView.as_view(), name='logout'),
     path('', index, name='index'),

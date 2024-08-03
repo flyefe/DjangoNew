@@ -39,5 +39,18 @@ create pages and templates
     -if you are not a member of a team create one
         -Create new team everytime a new user is created (later)
     -team owner can edit team name
+    -Limit num of leads
+    -Limit num of clients
+    -Refactoring
+        -Install tailwind instead of using of CDN
+        -Add name spaces to all of the apps
+        -Replace the leads list with a class based view
+        -Replace the leads details with a class based view
+        -Replace the delete with a class based view
+        -Replace the leads edit with a class based view 
+        -Replace the add with a class based view 
+            -And give it a better name
+        -Replace the leads convert with a class based view  
+    -make it possible to invite team members
 
 -Implement a payment solutions

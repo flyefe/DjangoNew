@@ -6,12 +6,20 @@
 <div class="py-6 px-6">
     <h1 class="tet-xl"> Add Client Page</h1>
 
-    <form method="post" action=".">
-        {% csrf_token %}
+    <p>Num Clients: {{team.clients.all|length}}</p>
+    <p>Max Clients: {{team.plan.max_client}}</p>
 
-        {{ form.as_p }}
-        
-        <button type="submit" class="py-4 px-8 bg-teal-500 text-white rounded-xl">Create Customer</button>
-    </form>
+
+    {% if team.clients.all|length < team.plan.max_client %}
+        <form method="post" action=".">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+            
+            <button type="submit" class="py-4 px-8 bg-teal-500 text-white rounded-xl">Create Customer</button>
+        </form>
+    {% else %}
+        <p>You have reached your limit</p>
+    {%endif%}
 </div> 
 {% endblock %}

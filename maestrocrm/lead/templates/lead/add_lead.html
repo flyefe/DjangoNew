@@ -6,11 +6,16 @@
 <div class="py-6 px-6">
     <h1 class="tet-xl"> Add Lead Page</h1>
 
-    <form method="post" action=".">
-        {% csrf_token %}
+    <p>Numleads: {{team.leads.all|length}}</p>
+    {% if team.leads.all|length < team.plan.max_lead %}
+            <form method="post" action=".">
+                {% csrf_token %}
 
-        {{ form.as_p }}
-        
+                {{ form.as_p }}
+        {% else %}      
+                <p>you have exceeded yourlimit</p>
+
+        {% endif %}
         <button type="submit" class="py-4 px-8 bg-teal-500 text-white rounded-xl">Submit</button>
     </form>
 </div> 

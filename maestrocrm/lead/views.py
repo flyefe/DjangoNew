@@ -65,7 +65,11 @@ def edit_lead(request, pk):
 
 @login_required
 def add_lead(request):
+    
+    team = get_object_or_404(Team, created_by=request.user)
+    
     if request.method == 'POST':
+        
         form = AddLeadForm(request.POST)
 
         if form.is_valid():
@@ -83,8 +87,11 @@ def add_lead(request):
         form = AddLeadForm()
 
     return render(request, 'lead/add_lead.html', {
-        'form': form
+        'form': form,
+        'team': team,
     })
+
+
 @login_required
 def convert_to_client(request, pk):
     lead = get_object_or_404(Lead, created_by=request.user, pk=pk)

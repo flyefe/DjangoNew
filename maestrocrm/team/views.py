@@ -19,7 +19,7 @@ def edit_team(request, pk):
             form.save()
             
             messages.success(request, f"{team.name} has been edited successfully.")
-            return redirect('myaccount')
+            return redirect('userprofile:myaccount')
         else:
             messages.success(request, f" form is not valid")
             return render(request, 'team/edit_team.html', {

@@ -25,13 +25,13 @@
 
         <hr class="my-4">
 
-        <a href=" {% url 'edit_lead' lead.id %} " class="py-2 px-4 rounded-xl bg-teal-500 text-white">Edit Leads</a>
-        <a href=" {% url 'delete_lead' lead.id %}" class="py-2 px-4 rounded-xl bg-red-500 text-white">Delete Leads</a>
-        <a href=" {% url 'convert_to_client' lead.id %} " class="py-2 px-4 rounded-xl bg-blue-500 text-white">Convert to
+        <a href=" {% url 'leads:edit' lead.id %} " class="py-2 px-4 rounded-xl bg-teal-500 text-white">Edit Leads</a>
+        <a href=" {% url 'leads:delete' lead.id %}" class="py-2 px-4 rounded-xl bg-red-500 text-white">Delete Leads</a>
+        <a href=" {% url 'leads:convert_to' lead.id %} " class="py-2 px-4 rounded-xl bg-blue-500 text-white">Convert to
             client</a>
 
         <hr class="my-4">
 
-        <a href="{% url 'leads_list' %}">Back to leads</a>
+        <a href="{% url 'leads:list' %}">Back to leads</a>
     </div>
 {% endblock %}

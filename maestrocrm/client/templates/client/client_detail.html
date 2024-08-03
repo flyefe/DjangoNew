@@ -25,8 +25,8 @@
 
     <hr class="my-4">
 
-    <a href=" {% url 'edit_client' client.id %} " class="py-2 px-4 rounded-xl bg-teal-500 text-white">Update Customer</a>
-    <a href="{% url 'delete_client' client.id %}" class="py-2 px-4 rounded-xl bg-red-500 text-white">Delete Customer</a>
+    <a href=" {% url 'clients:edit' client.id %} " class="py-2 px-4 rounded-xl bg-teal-500 text-white">Update Customer</a>
+    <a href="{% url 'clients:delete' client.id %}" class="py-2 px-4 rounded-xl bg-red-500 text-white">Delete Customer</a>
     <a href=" /" class="py-2 px-4 rounded-xl bg-blue-500 text-white">Convert back to
         lead</a>
 

@@ -1,3 +1,5 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -10,6 +12,8 @@ from django.contrib import messages
 from django.utils import timezone
 from client.models import Client
 from team.models import Team
+
+
 
 
 
@@ -31,6 +35,15 @@ def leads_detail(request, pk):
     return render(request, 'lead/leads_detail.html', {
         'lead':lead
     })
+
+
+class LeadListView(LoginRequiredMixin, ListView):
+    model = Lead
+    
+    
+    def get_queryset(self):      
+        return  Lead.objects.filter(created_by=self.request.user, convert_to_client=False)
+
 
 @login_required
 def leads_list(request):

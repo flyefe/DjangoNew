@@ -27,8 +27,15 @@
 
         <a href=" {% url 'leads:edit' lead.id %} " class="py-2 px-4 rounded-xl bg-teal-500 text-white">Edit Leads</a>
         <a href=" {% url 'leads:delete' lead.id %}" class="py-2 px-4 rounded-xl bg-red-500 text-white">Delete Leads</a>
-        <a href=" {% url 'leads:convert_to' lead.id %} " class="py-2 px-4 rounded-xl bg-blue-500 text-white">Convert to
-            client</a>
+        <!-- <a href=" {% url 'leads:convert_to' lead.id %} " class="py-2 px-4 rounded-xl bg-blue-500 text-white">Convert to
+            client</a> -->
+
+        <hr class="my-4">
+        
+        <form action="{% url 'leads:convert_to' lead.pk %}" method="post">
+            {% csrf_token %}
+            <button class="py-2 px-4 rounded-xl bg-blue-500 text-white" type="submit">Convert to Client</button>
+        </form>
 
         <hr class="my-4">
 

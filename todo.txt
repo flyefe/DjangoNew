@@ -50,7 +50,22 @@ create pages and templates
         -Replace the leads edit with a class based view 
         -Replace the add with a class based view 
             -And give it a better name
-        -Replace the leads convert with a class based view  
-    -make it possible to invite team members
+        -Replace the leads convert with a class based view
+
+                    -Export information of Lead and clients
+                    -Imort information of Leads and Clients
+                    -Make it possible to send a message via email to invite user
+    -Add comments and similar to leads and clientsUpload files to leads and clients
+    -Team Creation
+    -Add other users to the team 
+    -Make lead and client CRUD be based on team members
+    -Make it possible to send message to team members
+    -Unique users email only
+-Refactoring database to include all dataset needed for travels
+-Make forms and pages more presentable
+-Make homepage and other pages    -Make it possible to add notes/comments to clients and leads
+-Testing
+-Deployment
 
 -Implement a payment solutions
+-Create more plan

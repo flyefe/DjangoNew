@@ -53,9 +53,17 @@ class Client(models.Model):
         ordering= ('first_name',)
 
 
-    # class Meta:
-    #     ordering = ('first_name',)
-
-
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+
+
+class ClientComment(models.Model):
+    team = models.ForeignKey(Team, related_name='client_comment', on_delete=models.CASCADE)
+    client = models.ForeignKey(Client, related_name='comments', on_delete=models.CASCADE)
+    content = models.TextField(blank=True, null=True)
+    created_by = models.ForeignKey(User, related_name='client_comment', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'commented by {self.created_by.username} on {self.created_at}'

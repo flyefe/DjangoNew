@@ -1,5 +1,5 @@
 from django import forms
-from .models import Client
+from .models import Client, ClientComment
 
 class AddClientForm(forms.ModelForm):
     class Meta:
@@ -10,3 +10,9 @@ class AddClientForm(forms.ModelForm):
             'traffic_source', 'description',
         ]
         # Remove readonly_fields if it's not needed
+class AddCommentForm(forms.ModelForm):
+    class Meta:
+        model = ClientComment
+        fields = [
+            'content'
+        ]

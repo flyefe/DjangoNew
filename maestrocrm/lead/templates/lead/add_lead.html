@@ -6,7 +6,8 @@
 <div class="py-6 px-6">
     <h1 class="tet-xl"> Add Lead Page</h1>
 
-    <p>Numleads: {{team.leads.all|length}}</p>
+    <p>Numleads: {{team.leads.count}}</p>
+    <p>Max Lead: {{team.plan.max_lead}}</p>
     {% if team.leads.all|length < team.plan.max_lead %}
             <form method="post" action=".">
                 {% csrf_token %}

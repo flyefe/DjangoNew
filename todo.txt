@@ -56,6 +56,19 @@ create pages and templates
                     -Imort information of Leads and Clients
                     -Make it possible to send a message via email to invite user
     -Add comments and similar to leads and clientsUpload files to leads and clients
+        -DONE Create comment models for lead
+        -DONE Register models in admin
+        -DONE Create view for showing form
+        -DONE Create a form for adding comment
+        -Create a view for managing the comment
+            -Delete comment
+            -Edit comment
+        -DONE Create view for posting comment to database
+        -DONE DIspay comment above form on details page
+        -DONE Make it possible to delete comment
+        -DONE Make it possible to edit comment
+        -Beautify all forms
+        -Repeat all the above for Clients detail page
     -Team Creation
     -Add other users to the team 
     -Make lead and client CRUD be based on team members

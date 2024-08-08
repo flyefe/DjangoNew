@@ -7,10 +7,10 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
 from django.contrib import messages
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
-from .models import Lead
-from .forms import AddLeadForm
+from .models import Lead, LeadComment
+from .forms import AddLeadForm, AddCommentForm
 
 from django.contrib import messages
 from django.utils import timezone
@@ -36,16 +36,103 @@ class LeadDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
         return super().delete(request, *args, **kwargs)
 
 
+
+# class CommentDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
+#     model = LeadComment
+#     template_name = 'lead/comment_confirm_delete.html'
+#     success_url = reverse_lazy('leads:detalil')
+#     success_message = "%(content)s has been deleted."
+
+#     def get_queryset(self):
+#         comment = get_object_or_404(LeadComment, pk=self.kwargs.get('pk'))
+#         return comment
+    
+#     def get_success_message(self, cleaned_data):
+#         return f"{self.object.content} has been deleted."
+
+#     def delete(self, request, *args, **kwargs):
+#         self.object = self.get_object()
+#         messages.success(self.request, self.get_success_message(None))
+#         return super().delete(request, *args, **kwargs)
+
+
+
+class CommentEditView(UpdateView):
+    model = LeadComment
+    form_class = AddCommentForm
+    template_name = 'lead/edit_comment.html'
+
+    def form_valid(self, form):
+        messages.success(self.request, "Comment updated successfully.")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "There was an error updating the comment. Please try again.")
+        return super().form_invalid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('leads:detail', kwargs={'pk': self.object.lead.pk})
+    
+class CommentDeleteView(LoginRequiredMixin, DeleteView):
+    model = LeadComment
+    template_name = 'lead/comment_confirm_delete.html'
+    
+    def get_success_url(self):
+            return reverse_lazy('leads:detail', kwargs={'pk': self.object.lead.pk})
+
+    def get_object(self, queryset=None):
+        # Retrieve the comment object using the primary key from the URL
+        pk = self.kwargs.get('pk')
+        return get_object_or_404(LeadComment, pk=pk)
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.created_by != request.user:
+            return self.handle_no_permission()
+        return super().delete(request, *args, **kwargs)
+    
+
+class AddCommentView(View):
+    def post(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+
+        # Initialize the form with POST data
+        form = AddCommentForm(request.POST)
+        
+        if form.is_valid():
+            # Retrieve the team and create a new comment
+            team = Team.objects.filter(created_by=request.user).first()
+            if not team:
+                messages.error(request, "You don't have a team assigned.")
+                return redirect('leads:detail', pk=pk)
+            
+            comment = form.save(commit=False)
+            comment.team = team
+            comment.created_by = request.user
+            comment.lead_id = pk
+            comment.save()
+            
+            messages.success(request, "Comment added successfully.")
+        else:
+            # If form is not valid, send error messages
+            messages.error(request, "There was an error with your comment submission. Please try again.")
+
+        return redirect('leads:detail', pk=pk)
+
 class LeadDetailView(LoginRequiredMixin, DetailView):
     model = Lead
-    # template_name = 'lead/lead_detail.html'
-    # context_object_name = 'lead'
-    # login_url = '/log-in/'  # Specify your custom login URL here if different
+    success_url = reverse_lazy('leads:detail')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = AddCommentForm
+        return context
+
 
     def get_object(self):
         pk = self.kwargs.get("pk")
         return get_object_or_404(Lead, created_by=self.request.user, pk=pk)
-
+    
 
 class LeadListView(LoginRequiredMixin, ListView):
     model = Lead

@@ -67,8 +67,13 @@ create pages and templates
         -DONE DIspay comment above form on details page
         -DONE Make it possible to delete comment
         -DONE Make it possible to edit comment
-        -Beautify all forms
         -Repeat all the above for Clients detail page
+            -Convert delete views to class based views
+            -Create comment models for client
+            -Create AddCommenForm
+            -Render form on client details page
+            -Query comments to client details page
+        -Beautify all forms
     -Team Creation
     -Add other users to the team 
     -Make lead and client CRUD be based on team members

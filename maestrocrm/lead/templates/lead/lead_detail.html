@@ -35,6 +35,7 @@
                 {% csrf_token %}
                 <button class="py-2 px-4 rounded-xl bg-blue-500 text-white" type="submit">Convert to Client</button>
             </form>
+            <a href="{% url 'leads:list' %}">Back to leads</a>
         </div>
 
         <hr class="my-4">
@@ -46,9 +47,19 @@
 
 
 
+    <h2 class="text-xl mb-6">Comments</h2>
+    <div class="flex space-x-4 mb-6">
+        <hr class="my-4">
 
-    <div>
-        <h2 class="text-xl mb-6">Comments</h2>
+        <form method="post" action="{% url 'leads:comment' lead.id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="py-2 px-4 rounded-xl bg-blue-500 text-white" type="submit">Add Comment</button>
+        </form>
+
+
+        <hr class="my-4">
+
 
         <div class="space-y-4">
             {% for comment in lead.comments.all %}
@@ -69,21 +80,6 @@
                 </div>
             </div>
             {% endfor %}
-        
-        </div>
-        
-        <hr class="my-4">
-        <form method="post" action="{% url 'leads:comment' lead.id %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button class="py-2 px-4 rounded-xl bg-blue-500 text-white" type="submit">Add Comment</button>
-        </form>
-
-
-        <hr class="my-4">
-        
-        <a href="{% url 'leads:list' %}">Back to leads</a>
+        </div>  
     </div>
-
-
 {% endblock %}

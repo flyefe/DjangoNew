@@ -176,12 +176,37 @@ class LeadListView(LoginRequiredMixin, ListView):
 
 
 
+# class LeadCreateView(LoginRequiredMixin, CreateView):
+#     model = Lead
+#     form_class = AddLeadForm
+#     template_name = 'lead/add_lead.html'
+#     success_url = reverse_lazy('leads:list')
+    
+
+#     def form_valid(self, form):
+#         # Get the team associated with the current user
+#         team = Team.objects.filter(created_by=self.request.user).first()
+        
+#         # Assign the team and created_by fields to the lead instance
+#         lead = form.save(commit=False)
+#         lead.created_by = self.request.user
+#         lead.team = team
+#         lead.save()
+        
+#         # Add a success message
+#         messages.success(self.request, f"{lead.first_name} has been added successfully.")
+        
+#         return super().form_valid(form)
+    
+
+
+
 class LeadCreateView(LoginRequiredMixin, CreateView):
     model = Lead
     form_class = AddLeadForm
     template_name = 'lead/add_lead.html'
     success_url = reverse_lazy('leads:list')
-
+    
     def form_valid(self, form):
         # Get the team associated with the current user
         team = Team.objects.filter(created_by=self.request.user).first()
@@ -196,3 +221,48 @@ class LeadCreateView(LoginRequiredMixin, CreateView):
         messages.success(self.request, f"{lead.first_name} has been added successfully.")
         
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        # Call the base implementation first to get the context
+        context = super().get_context_data(**kwargs)
+        
+        # Get the team associated with the current user
+        team = Team.objects.filter(created_by=self.request.user).first()
+        
+        # Add the team object to the context
+        context['team'] = team
+        
+        return context
+    
+
+
+
+# @login_required
+# def add_lead(request):
+    
+#     team=Team.objects.filter(created_by=request.user).first()
+
+#     if request.method == 'POST':
+#         form = AddLeadForm(request.POST)
+
+#         if form.is_valid():
+#             team=Team.objects.filter(created_by=request.user).first()
+
+#             lead = form.save(commit=False)
+#             lead.created_by = request.user
+#             lead.team = team
+#             lead.save()
+
+#             messages.success(
+#                 request, f"{client.first_name} has been added successfully.")
+
+#             return redirect(
+#                 'leads:list'
+#             )  # Redirect to a success page or another relevant page
+#     else:
+#         form = AddLeadForm()
+
+#     return render(request, 'lead/add_lead.html', {
+#         'form': form,
+#         'team' : team
+#         })

@@ -99,35 +99,6 @@ def edit_client(request, pk):
 
 
 
-@login_required
-def add_client(request):
-    
-    team=Team.objects.filter(created_by=request.user).first()
-
-    if request.method == 'POST':
-        form = AddClientForm(request.POST)
-
-        if form.is_valid():
-            team=Team.objects.filter(created_by=request.user).first()
-
-            client = form.save(commit=False)
-            client.created_by = request.user
-            client.team = team
-            client.save()
-
-            messages.success(
-                request, f"{client.first_name} has been added successfully.")
-
-            return redirect(
-                'clients:list'
-            )  # Redirect to a success page or another relevant page
-    else:
-        form = AddClientForm()
-
-    return render(request, 'client/add_client.html', {
-        'form': form,
-        'team' : team
-        })
 
 
 @login_required
@@ -160,3 +131,34 @@ def client_list(request):
     clients = Client.objects.filter(created_by=request.user)
 
     return render(request, 'client/client_list.html', {'clients': clients})
+
+
+@login_required
+def add_client(request):
+    
+    team=Team.objects.filter(created_by=request.user).first()
+
+    if request.method == 'POST':
+        form = AddClientForm(request.POST)
+
+        if form.is_valid():
+            team=Team.objects.filter(created_by=request.user).first()
+
+            client = form.save(commit=False)
+            client.created_by = request.user
+            client.team = team
+            client.save()
+
+            messages.success(
+                request, f"{client.first_name} has been added successfully.")
+
+            return redirect(
+                'clients:list'
+            )  # Redirect to a success page or another relevant page
+    else:
+        form = AddClientForm()
+
+    return render(request, 'client/add_client.html', {
+        'form': form,
+        'team' : team
+        })

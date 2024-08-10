@@ -6,6 +6,7 @@ app_name ='leads'
 
 urlpatterns = [
     path('lead_list/', views.LeadListView.as_view(), name='list'),
+    # path('add_lead/', views.add_lead, name='add'),
     path('add_lead/', views.LeadCreateView.as_view(), name='add'),
     path('add_comment/<int:pk>', views.AddCommentView.as_view(), name='comment'),
     path('lead/comment/<int:pk>/edit/', views.CommentEditView.as_view(), name='edit_comment'),

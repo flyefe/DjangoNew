@@ -1,11 +1,138 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.models import User
 
 from django.contrib import messages
 
 from .models import Team
 from .forms import AddTeamForm
 
+from .forms import UserSearchForm
+
+
+
+@login_required
+def remove_team_member(request, user_id):
+    team = Team.objects.filter(created_by=request.user).first()
+    user = get_object_or_404(User, pk=user_id)
+
+    # if team and user in team.members.all():
+    #     team.members.remove(user)
+    #     messages.success(request, f'{user.username} has been removed from the team.')
+    # else:
+    #     messages.error(request, 'User is not a member of the team or no team found.')
+    if team:
+        # Check if the user to be removed is the owner of the team
+        if user == team.created_by:
+            messages.error(request, "You cannot remove the team owner from the team.")
+        elif user in team.members.all():
+            team.members.remove(user)
+            messages.success(request, f'{user.username} has been removed from the team.')
+        else:
+            messages.error(request, 'User is not a member of the team.')
+    else:
+        messages.error(request, 'No team found.')
+
+    return redirect('userprofiles:myaccount')
+
+
+@login_required
+def add_team_member(request):
+    form = UserSearchForm()
+    team = Team.objects.filter(created_by=request.user).first()
+
+    if request.method == 'POST':
+        form = UserSearchForm(request.POST)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            users = User.objects.filter(username__icontains=query) | User.objects.filter(email__icontains=query)
+            return render(request, 'team/add_member.html', {
+                    'form': form, 
+                    'users': users, 
+                    'team': team
+                })
+   
+    # Fetch team members
+    # team_members = team.members.all() if team else []
+
+    return render(request, 'team/add_member.html', {
+        'form': form, 
+        'team': team
+    })
+
+
+
+# @login_required
+# def add_member_to_team(request, user_id):
+#     # user = request.user
+
+#     user = User.objects.get(pk=user_id)
+#     team = Team.objects.filter(created_by=request.user).first()
+
+#     if user.team is not None:
+#         messages.error(request, f'{user.username} is already a member of another team.')
+#     else:
+#         user.team = team
+#         user.save()
+#         messages.success(request, f'{user.username} has been added to your team.')
+
+
+#     return redirect('team:add_member')
+
+
+
+# @login_required
+# def add_member_to_team(request, user_id):
+#     user = User.objects.get(pk=user_id)
+#     team = Team.objects.filter(created_by=request.user).first()
+
+#     if team is None:
+#         messages.error(request, 'No team found to add members to.')
+#         return redirect('team:add_member')
+
+#     if user.teams.exists():
+#         messages.error(request, f'{user.username} is already a member of another team.')
+#     else:
+#         team.members.add(user)
+#         messages.success(request, f'{user.username} has been added to your team.')
+
+#     return redirect('team:add_member')
+
+@login_required
+def add_member_to_team(request, user_id):
+    user = User.objects.get(pk=user_id)
+    new_team = Team.objects.filter(created_by=request.user).first()
+
+    if new_team is None:
+        messages.error(request, 'No team found to add members to.')
+        return redirect('team:add_member')
+
+    # Add the user to the new team
+    if not new_team.members.filter(pk=user.id).exists():
+        new_team.members.add(user)
+        messages.success(request, f'{user.username} has been added to your team.')
+    else:
+        messages.info(request, f'{user.username} is already a member of this team.')
+
+    return redirect('userprofiles:myaccount')
+
+# @login_required
+# def add_member_to_team(request, user_id):
+#     user = User.objects.get(pk=user_id)
+#     new_team = Team.objects.filter(created_by=request.user).first()
+
+#     if new_team is None:
+#         messages.error(request, 'No team found to add members to.')
+#         return redirect('team:add_member')
+
+#     # Remove the user from all existing teams
+#     user.teams.clear()
+    
+#     # Add the user to the new team
+#     new_team.members.add(user)
+#     messages.success(request, f'{user.username} has been added to your team.')
+
+#     return redirect('team:add_member')
 
 
 
@@ -34,29 +161,3 @@ def edit_team(request, pk):
             'team': team,
             'form': form
         })
-@login_required
-def manage_team_membership(request):
-    user = request.user
-    available_teams = Team.objects.all()  # or filter as needed
-    user_teams = user.teams.all()
-    
-    if request.method == 'POST':
-        team_id = request.POST.get('team_id')
-        action = request.POST.get('action')
-        team = get_object_or_404(Team, id=team_id)
-
-        if action == 'join':
-            team.members.add(user)
-            messages.success(request, f'You have joined the team: {team.name}')
-        elif action == 'leave':
-            team.members.remove(user)
-            messages.success(request, f'You have left the team: {team.name}')
-        else:
-            messages.error(request, 'Invalid action.')
-        
-        return redirect('manage_team_membership')
-
-    return render(request, 'team/manage_membership.html', {
-        'available_teams': available_teams,
-        'user_teams': user_teams,
-    })

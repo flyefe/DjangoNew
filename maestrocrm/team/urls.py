@@ -5,9 +5,9 @@ from . import views
 app_name = 'team'
 
 urlpatterns = [
-    # path('<int:pk>/details/', views.client_detail, name='client_detail'),
+    path('add-member/<int:user_id>/', views.add_member_to_team, name='add_to_team'),
     path('<int:pk>/edit-team/', views.edit_team, name='edit'),
-    # path('<int:pk>/delete/', views.delete_client, name='delete_client'),
+    path('remove-member/<int:user_id>/', views.remove_team_member, name='remove_member'),
     # path('client/', views.client_list, name='client_list'),
-    # path('add_client/', views.add_client, name='add_client'),
+    path('add-member/', views.add_team_member, name='add_member'),
 ]

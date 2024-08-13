@@ -29,6 +29,13 @@ def signup(request):
 @login_required
 def myaccount(request):
     team = Team.objects.filter(created_by=request.user).first()
+    user = request.user
+    teams = user.teams.all()
+    team_members = team.members.all() if team else []
+
+
     return render(request, 'userprofile/myaccount.html', {
-        'team' : team
+        'team' : team,
+        'teams' : teams,
+        'team_members' : team_members
     })

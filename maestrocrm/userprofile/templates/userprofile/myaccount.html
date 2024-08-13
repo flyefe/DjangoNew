@@ -11,8 +11,15 @@
         </p>
         
         <p class="mb-2">
-            <strong>Team:</strong>{{ team.name }}
-            <a class="text-blue" href=" {% url 'team:edit' team.id %} ">(Edit)</a>
+            <strong>Team:</strong>
+            {% if team %}
+                {{ team.name }}
+                {% if team.id %}
+                    <a class="text-blue" href="{% url 'team:edit' team.id %}">(Edit)</a>
+                {% endif %}
+            {% else %}
+                No team found.
+            {% endif %}
         </p>
         <hr class="mb-4">
         <form method="post" action="{% url 'logout' %}">

@@ -126,11 +126,31 @@ def client_detail(request, pk):
     })
 
 
+# @login_required
+# def client_list(request):
+#     # if team_id is None:
+#     #     messages.success(
+#     #         request, f"there is no team associated to this request"
+#     #     )
+
+#     #     return redirect('userprofiles:error')
+    
+#     team = get_object_or_404(Team, id=team_id, members=request.user)
+#     clients = Client.objects.filter(team=team)
+
+#     return render(request, 'client/client_list.html', {
+#             'clients': clients,
+#             'team' : team,
+#         }
+#         )
+
 @login_required
 def client_list(request):
-    clients = Client.objects.filter(created_by=request.user)
+    clients = Client.objects.all()  # Fetch all clients without filtering by team
 
-    return render(request, 'client/client_list.html', {'clients': clients})
+    return render(request, 'client/client_list.html', {
+        'clients': clients,
+    })
 
 
 @login_required

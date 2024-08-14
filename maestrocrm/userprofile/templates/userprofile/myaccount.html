@@ -55,12 +55,15 @@
                 <strong>Username :</strong> {{ member.username }}
                 <a href="{% url 'team:remove_member' member.id %}" class="text-red-500 py-2 px-4 inline-block bg-red-400 rounded-xl text-white"
                     onclick="return confirm('Are you sure you want to remove this member?');">Remove</a>
+                    
             </li>
             {% endfor %}
         </ul>
         {% else %}
         No members in this team.
         {% endif %}
+
+        
         </p>
         {% endif %}
 

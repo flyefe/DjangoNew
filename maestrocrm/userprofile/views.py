@@ -39,3 +39,10 @@ def myaccount(request):
         'teams' : teams,
         'team_members' : team_members
     })
+
+
+
+@login_required
+def error(request):
+
+    return render(request, 'userprofile/error.html')

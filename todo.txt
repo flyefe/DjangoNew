@@ -75,8 +75,13 @@ create pages and templates
             -Query comments to client details page
         -Beautify all forms
     -Team Creation
-    -Add other users to the team 
+    - DONE Add other users to the team 
     -Make lead and client CRUD be based on team members
+        -make sesson for team
+        -Make it possible to display leads and clients based on team_id chosen from account page
+            -change views for client to display only clients based on team_id
+            -Make sesson registered in account page
+            -Make it possible to ensure that team members can also add leads and clients to the same team 
     -Make it possible to send message to team members
     -Unique users email only
 -Refactoring database to include all dataset needed for travels

@@ -12,6 +12,7 @@ urlpatterns = [
     path('comment/<int:pk>/delete/', views.CommentDeleteView.as_view(), name='delete_comment'),
 
     path('client/', views.client_list, name='list'),
+    path('assigned/', views.client_assigned, name='assigned'),
     path('add_client/', views.add_client, name='add'),
 ]
 

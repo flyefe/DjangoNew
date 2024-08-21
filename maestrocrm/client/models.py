@@ -50,7 +50,7 @@ class Client(models.Model):
 
 
     class Meta:
-        ordering= ('first_name',)
+        ordering= ('-created_at',)
 
 
     def __str__(self):

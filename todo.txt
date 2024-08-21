@@ -60,33 +60,38 @@ create pages and templates
         -DONE Register models in admin
         -DONE Create view for showing form
         -DONE Create a form for adding comment
-        -Create a view for managing the comment
-            -Delete comment
-            -Edit comment
+        -DONE Create a view for managing the comment
+            -DONE Delete comment
+            -DONE Edit comment
         -DONE Create view for posting comment to database
         -DONE DIspay comment above form on details page
         -DONE Make it possible to delete comment
         -DONE Make it possible to edit comment
-        -Repeat all the above for Clients detail page
-            -Convert delete views to class based views
-            -Create comment models for client
-            -Create AddCommenForm
-            -Render form on client details page
-            -Query comments to client details page
+        -DONE Repeat all the above for Clients detail page
+            -DONE Convert delete views to class based views
+            -DONE Create comment models for client
+            -DONE Create AddCommenForm
+            -DONE Render form on client details page
+            -DONE Query comments to client details page
         -Beautify all forms
     -Team Creation
     - DONE Add other users to the team 
-    -Make lead and client CRUD be based on team members
-        -make sesson for team
-        -Make it possible to display leads and clients based on team_id chosen from account page
-            -change views for client to display only clients based on team_id
+    -Make lead and client CRUD be based on team members and staff and admin
+        -Done Make it possible to display leads and clients based on team_membership
+        -DONE Make it possible to display leads and clilents to assigned team members on assigned to me page
+            -DONE Create view for assigned to me
+            -DONE Create URLS for that
+            -DONE Create template for assigned to me
+            -DONE change views for client to display only clients based on team_id and based on group (staff or admin)
             -Make sesson registered in account page
-            -Make it possible to ensure that team members can also add leads and clients to the same team 
+        -Restrict users from changing team name
+        -Restrict non admin members from creating clients
     -Make it possible to send message to team members
     -Unique users email only
 -Refactoring database to include all dataset needed for travels
 -Make forms and pages more presentable
--Make homepage and other pages    -Make it possible to add notes/comments to clients and leads
+-Make homepage and other pages    
+-DONE Make it possible to add notes/comments to clients and leads
 -Testing
 -Deployment
 

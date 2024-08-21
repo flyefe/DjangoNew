@@ -62,42 +62,6 @@ def add_team_member(request):
 
 
 
-# @login_required
-# def add_member_to_team(request, user_id):
-#     # user = request.user
-
-#     user = User.objects.get(pk=user_id)
-#     team = Team.objects.filter(created_by=request.user).first()
-
-#     if user.team is not None:
-#         messages.error(request, f'{user.username} is already a member of another team.')
-#     else:
-#         user.team = team
-#         user.save()
-#         messages.success(request, f'{user.username} has been added to your team.')
-
-
-#     return redirect('team:add_member')
-
-
-
-# @login_required
-# def add_member_to_team(request, user_id):
-#     user = User.objects.get(pk=user_id)
-#     team = Team.objects.filter(created_by=request.user).first()
-
-#     if team is None:
-#         messages.error(request, 'No team found to add members to.')
-#         return redirect('team:add_member')
-
-#     if user.teams.exists():
-#         messages.error(request, f'{user.username} is already a member of another team.')
-#     else:
-#         team.members.add(user)
-#         messages.success(request, f'{user.username} has been added to your team.')
-
-#     return redirect('team:add_member')
-
 @login_required
 def add_member_to_team(request, user_id):
     user = User.objects.get(pk=user_id)
@@ -116,23 +80,7 @@ def add_member_to_team(request, user_id):
 
     return redirect('userprofiles:myaccount')
 
-# @login_required
-# def add_member_to_team(request, user_id):
-#     user = User.objects.get(pk=user_id)
-#     new_team = Team.objects.filter(created_by=request.user).first()
 
-#     if new_team is None:
-#         messages.error(request, 'No team found to add members to.')
-#         return redirect('team:add_member')
-
-#     # Remove the user from all existing teams
-#     user.teams.clear()
-    
-#     # Add the user to the new team
-#     new_team.members.add(user)
-#     messages.success(request, f'{user.username} has been added to your team.')
-
-#     return redirect('team:add_member')
 
 
 
@@ -147,7 +95,7 @@ def edit_team(request, pk):
 
             messages.success(request,
                              f"{team.name} has been edited successfully.")
-            return redirect('userprofile:myaccount')
+            return redirect('userprofiles:myaccount')
         else:
             messages.success(request, f" form is not valid")
             return render(request, 'team/edit_team.html', {

@@ -41,7 +41,7 @@ class Lead(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering= ('first_name',)
+        ordering= ('-created_at',)
 
     def __str__(self):
         return self.first_name

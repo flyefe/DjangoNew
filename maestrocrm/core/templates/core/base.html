@@ -7,11 +7,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-     <link rel="stylesheet" href="{% static 'main.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main.min.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <title> {% block title %} {% endblock %} </title>
 </head>
 
-<body>
+<body class="bg-gray-100">
+    <!-- Navbar -->
     <nav class="py-4 px-6 flex justify-between bg-teal-500">
         <a href="/" class="text-white">MaestroCRM</a>
         <div class="flex space-x-4">

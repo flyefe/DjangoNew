@@ -14,27 +14,9 @@
 
 <body class="bg-gray-100">
     <!-- Navbar -->
-    <nav class="py-4 px-6 flex justify-between bg-teal-500">
-        <a href="/" class="text-white">MaestroCRM</a>
-        <div class="flex space-x-4">
-            <a href="{% url 'about'%}" class="py-2 px-4 text-white">About</a>
-           {% if request.user.is_authenticated %}
-            <a href="{% url 'leads:list' %}" class="py-2 px-4 bg-teal-600 rounded-xl text-white">All Leads</a>
-            <a href="{% url 'clients:assigned' %}" class="py-2 px-4 bg-teal-600 rounded-xl text-white">Assigned Customers</a>
-            <a href="{% url 'clients:list' %}" class="py-2 px-4 bg-green-600 rounded-xl text-white">All Customers</a>
-            <a href="{% url 'dashboard:index' %}" class="py-2 px-4 bg-teal-600 rounded-xl text-white">Dashboard</a>
-           <a href="{% url 'userprofiles:myaccount' %}" class="py-2 px-4 bg-teal-800 rounded-xl text-white">My Account</a>
-            <!-- <form method="post" action="{% url 'logout' %}">
-                {% csrf_token %}
-                <button type="submit" class="py-2 px-4 bg-red-400 rounded-xl text-white">Logout</button>
-            </form> -->
-            {% else %}
-            <a href="{% url 'login' %}" class="py-2 px-4 bg-teal-600 rounded-xl text-white">Log In</a>
-            <a href="{% url 'userprofiles:signup' %}" class="py-2 px-4 bg-teal-400 rounded-xl text-white">Sign Up</a>
-            {% endif %}
-        </div>
-    </nav>
-
+    {% include 'core/partials/nav.html' %}
+    
+    <!-- Notification Messages -->
     {% if messages %}
     <div class="py-6 px-6">
         {% for message in messages %}
@@ -48,9 +30,8 @@
     {% block content %}
     {% endblock %}
 
-    <footer class="py-8 text-center bg-gray-200">
-        <p class="text-xs text-gray-700">Copyright (c) 2022 - MaestroCRM</p>
-    </footer>
+    <!-- Footer -->
+    {% include 'core/partials/footer.html' %}
 </body>
 
 </html>

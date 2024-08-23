@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bottom to Top Progress Bar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .progress-container {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            width: 200px;
+            margin: 0 auto;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .progress-step::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: -30px;
+            width: 2px;
+            height: 30px;
+            background-color: #d1d5db; /* Default grey color */
+            z-index: -1;
+        }
+
+        .progress-step:last-child::before {
+            display: none;
+        }
+
+        .circle {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid #d1d5db;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            background-color: white;
+        }
+
+        .label {
+            margin-top: 8px;
+            font-size: 12px;
+            text-align: center;
+            color: #6b7280; /* Default grey color */
+        }
+
+        .completed .circle {
+            background-color: #d1d5db; /* Grey background for completed steps */
+            border-color: #d1d5db;
+            color: white;
+        }
+
+        .active .circle {
+            background-color: #3b82f6; /* Blue background for active step */
+            border-color: #1f2937; /* Black border for active step */
+            color: white;
+        }
+
+        .active .label {
+            color: #1f2937; /* Black text color for active step */
+        }
+
+        .completed .label {
+            color: #6b7280; /* Grey text color for completed steps */
+        }
+
+    </style>
+</head>
+
+<body class="bg-gray-100 p-10">
+    <div class="max-w-md mx-auto">
+        <h2 class="text-xl font-bold mb-6 text-center">Circles with text</h2>
+        <div class="relative pt-10 pl-10">
+            <!-- Step 5 -->
+            <div class="flex items-center mb-8">
+                <div
+                    class="absolute right-0 flex items-center justify-center w-8 h-8 rounded-full border-2 border-gray-300 bg-white">
+                </div>
+                <div class="flex-1 mr-4">
+                    <h3 class="text-lg font-semibold text-gray-700">Preview</h3>
+                    <p class="text-sm text-gray-500">Iusto et officia maiores porro ad non quas.</p>
+                </div>
+            </div>
+            <!-- Line -->
+            <div class="border-r-2 border-gray-300 h-8 absolute right-3"></div>
+            <!-- Step 4 -->
+            <div class="flex items-center mb-8">
+                <div
+                    class="absolute right-0 flex items-center justify-center w-8 h-8 rounded-full border-2 border-gray-300 bg-white">
+                </div>
+                <div class="flex-1 mr-4">
+                    <h3 class="text-lg font-semibold text-gray-700">Theme</h3>
+                    <p class="text-sm text-gray-500">Faucibus nec enim leo et.</p>
+                </div>
+            </div>
+            <!-- Line -->
+            <div class="border-r-2 border-gray-300 h-8 absolute right-3"></div>
+            <!-- Step 3 -->
+            <div class="flex items-center mb-8">
+                <div
+                    class="absolute right-0 flex items-center justify-center w-8 h-8 rounded-full border-2 border-gray-300 bg-white">
+                </div>
+                <div class="flex-1 mr-4">
+                    <h3 class="text-lg font-semibold text-gray-700">Business information</h3>
+                    <p class="text-sm text-gray-500">Penatibus eu quis ante.</p>
+                </div>
+            </div>
+            <!-- Line -->
+            <div class="border-r-2 border-gray-300 h-8 absolute right-3"></div>
+            <!-- Step 2 -->
+            <div class="flex items-center mb-8">
+                <div
+                    class="absolute right-0 flex items-center justify-center w-8 h-8 border-2 border-indigo-600 rounded-full bg-white">
+                    <span class="bg-indigo-600 rounded-full w-3 h-3 block"></span>
+                </div>
+                <div class="flex-1 mr-4">
+                    <h3 class="text-lg font-semibold text-indigo-600">Profile information</h3>
+                    <p class="text-sm text-gray-500">Cursus semper viverra facilisis et et some more.</p>
+                </div>
+            </div>
+            <!-- Line -->
+            <div class="border-r-2 border-gray-300 h-8 absolute right-3"></div>
+            <!-- Step 1 -->
+            <div class="flex items-center mb-8">
+                <div class="absolute right-0 flex items-center justify-center w-8 h-8 rounded-full bg-indigo-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20"
+                        fill="currentColor">
+                        <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-11.293l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.586 1.586a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0z"
+                            clip-rule="evenodd" />
+                    </svg>
+                </div>
+                <div class="flex-1 mr-4">
+                    <h3 class="text-lg font-semibold text-indigo-600">Create account</h3>
+                    <p class="text-sm text-gray-500">Vitae sed mi luctus laoreet.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-step completed">
+            <div class="circle">✔</div>
+            <div class="label">Step 1: Create account</div>
+        </div>
+        <div class="progress-step active">
+            <div class="circle">✔</div>
+            <div class="label">Step 2: Profile information</div>
+        </div>
+        <div class="progress-step">
+            <div class="circle"></div>
+            <div class="label">Step 3: Business information</div>
+        </div>
+        <div class="progress-step">
+            <div class="circle"></div>
+            <div class="label">Step 4: Theme</div>
+        </div>
+        <div class="progress-step">
+            <div class="circle"></div>
+            <div class="label">Step 5: Preview</div>
+        </div>
+    </div>
+
+
+    <div class="flex flex-col items-center w-48 mx-auto">
+        <!-- Step 5: Preview -->
+        <div class="relative flex flex-col items-center mb-6">
+            <div class="w-px h-10 bg-gray-300 absolute top-0 left-1/2 transform -translate-x-1/2"></div>
+            <div class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-300 text-white">
+                <span></span>
+            </div>
+            <div class="mt-2 text-sm text-gray-500">Preview</div>
+        </div>
+    
+        <!-- Step 4: Theme -->
+        <div class="relative flex flex-col items-center mb-6">
+            <div class="w-px h-10 bg-gray-300 absolute top-0 left-1/2 transform -translate-x-1/2"></div>
+            <div class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-300 text-white">
+                <span></span>
+            </div>
+            <div class="mt-2 text-sm text-gray-500">Theme</div>
+        </div>
+    
+        <!-- Step 3: Business information -->
+        <div class="relative flex flex-col items-center mb-6">
+            <div class="w-px h-10 bg-gray-300 absolute top-0 left-1/2 transform -translate-x-1/2"></div>
+            <div class="flex items-center justify-center w-8 h-8 rounded-full bg-gray-300 text-white">
+                <span></span>
+            </div>
+            <div class="mt-2 text-sm text-gray-500">Business information</div>
+        </div>
+    
+        <!-- Step 2: Profile information -->
+        <div class="relative flex flex-col items-center mb-6">
+            <div class="w-px h-10 bg-blue-500 absolute top-0 left-1/2 transform -translate-x-1/2"></div>
+            <div class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-500 text-white">
+                ✔
+            </div>
+            <div class="mt-2 text-sm text-blue-500">Profile information</div>
+        </div>
+    
+        <!-- Step 1: Create account -->
+        <div class="relative flex flex-col items-center mb-6">
+            <div class="w-px h-10 bg-gray-300 absolute top-0 left-1/2 transform -translate-x-1/2"></div>
+            <div class="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-500 text-white">
+                ✔
+            </div>
+            <div class="mt-2 text-sm font-bold text-indigo-500">Create account</div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
